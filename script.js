@@ -10,12 +10,18 @@ const copyColor = elem => {
 }
 
 const showColors = () => {
+    if(!pickedColors.length){
+        return; // no colors
+    }
     colorList.innerHTML = pickedColors.map(color => `
         <li class="color">
             <span class="rect" style="background: ${color}; border: 1px solid ${color == "#ffffff" ? "#ccc" : color}"></span>
             <span class="value" data-color="${color}">${color}</span>
         </li>    
     `).join(""); //Generating li for the picked color and adding it to the colorList
+    
+    // Hidding picked colors title
+    document.querySelector(".picked-colors").classList.remove("hide");
     
     //Add a click event listener to each color element to copy the color code
     document.querySelectorAll(".color").forEach(li => {
@@ -48,6 +54,7 @@ const activateEyeDropper = async () => {
 const clearAllColors = () => {
     pickedColors.length = 0;
     localStorage.setItem("picked-colors", JSON.stringify(pickedColors));
+    document.querySelector(".picked-colors").classList.add("hide");
 } 
 
 colorPickerBtn.addEventListener("click", activateEyeDropper);
