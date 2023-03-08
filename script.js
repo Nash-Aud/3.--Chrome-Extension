@@ -33,6 +33,7 @@ showColors();
 
 
 const activateEyeDropper = async () => {
+    document.body.style.display = "none"; //hidding the popup
     try {
         const eyeDropper = new EyeDropper();
         const {sRGBHex} = await eyeDropper.open();
@@ -46,8 +47,9 @@ const activateEyeDropper = async () => {
         }
        
     } catch (error) {
-        console.log(error);
+        console.log("Failed to copy the color code!");
     }
+    document.body.style.display = "block";
 }
 
 // Clearing all picked colors and updating localStorage
